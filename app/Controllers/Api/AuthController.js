@@ -9,7 +9,7 @@ module.exports = {
     register: async (req, res) => {
         try {
             const valid = new Validator(req.body, {
-                username: 'required',
+                // username: 'required',
                 email: 'required',
                 password: 'required'
             });
