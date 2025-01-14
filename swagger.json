@@ -1,0 +1,147 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "1.0",
+        "title": "Movies and Rating"
+    },
+    "host": "petstore.swagger.io",
+    "basePath": "/",
+    "tags": [
+        {
+            "name": "Admin",
+            "description": ""
+        },
+        {
+            "name": "Frontend Api",
+            "description": "Frontend Api"
+        }
+    ],
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "paths": {
+        "/api/add-genre": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Add Genre",
+                "description": "",
+                "operationId": "Api",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "reqData",
+                        "required": true,
+                        "type": "string",
+                        "format": "string",
+                        "default": ""
+                    },
+                    {
+                        "name": "slug",
+                        "in": "formData",
+                        "description": "reqData",
+                        "required": true,
+                        "type": "string",
+                        "format": "string",
+                        "default": ""
+                    },
+                    {
+                        "name": "description",
+                        "in": "formData",
+                        "description": "reqData",
+                        "required": false,
+                        "type": "string",
+                        "format": "string",
+                        "default": ""
+                    },
+                    {
+                        "name": "status",
+                        "in": "formData",
+                        "description": "reqData",
+                        "required": true,
+                        "type": "string",
+                        "format": "string",
+                        "default": ""
+                    },
+                    {
+                        "name": "genreId",
+                        "in": "formData",
+                        "description": "reqData",
+                        "required": false,
+                        "type": "string",
+                        "format": "string",
+                        "default": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "genre added successfully!",
+                        "schema": {
+                            "$ref": "#/definitions/ApiResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/genre-list": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Get Genre List",
+                "description": "",
+                "operationId": "Api",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+               
+                "responses": {
+                    "200": {
+                        "description": "genre list",
+                        "schema": {
+                            "$ref": "#/definitions/ApiResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    
+    "securityDefinitions": {
+        "Authorization": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header",
+            "description": "  Enter the token like `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYmQxODM1NzQ0MGZmYjUzMWM5NDE0NCIsImZpcnN0TmFtZSI6Ik1vaGQiLCJtb2JpbGUiOiI5NjkwNzE2MzA5IiwiZGV2aWNlVG9rZW4iOiIxMjM0NTY3OCIsIm5vdGlmaWNhdGlvblN0YXR1cyI6dHJ1ZSwiaWF0IjoxNjczODkxNTk4LCJleHAiOjE3MDU0Mjc1OTh9.uN4d3gbKmDkeBv0fjE94i2Ffwcfwe7ty1ySEnuFrh28` "
+        }
+    },
+    "definitions": {
+        "ApiResponse": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
