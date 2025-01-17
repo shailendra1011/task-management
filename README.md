@@ -14,7 +14,7 @@ Tools are installed on your system:
 
 ### 1. Clone the Repository
 
-git clone <repository_url>
+git clone `<https://github.com/shailendra1011/task-management.git>`
 cd <project_folder>
 
 
