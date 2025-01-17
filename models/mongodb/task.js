@@ -27,10 +27,6 @@ const TaskSchema = mongoose.Schema({
         type: String,
         required: true,
         enum: ['Pending', 'In Progress', 'Completed'],
-    },
-    deletedAt: {
-        type: Date,
-        default: null
     }
 }, {
     timestamps: true

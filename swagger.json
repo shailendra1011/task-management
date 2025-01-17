@@ -2,31 +2,22 @@
     "openapi": "3.0.0",
     "info": {
         "version": "1.0",
-        "title": "Movies and Rating"
+        "title": "Task Management"
     },
     "host": "petstore.swagger.io",
     "basePath": "/",
-    "tags": [
-        {
-            "name": "Admin",
-            "description": ""
-        },
-        {
-            "name": "Frontend Api",
-            "description": "Frontend Api"
-        }
-    ],
+    "tags": [],
     "schemes": [
         "http",
         "https"
     ],
     "paths": {
-        "/api/add-genre": {
+        "/api/register": {
             "post": {
                 "tags": [
-                    "Admin"
+                    "Api"
                 ],
-                "summary": "Add Genre",
+                "summary": "Registration api",
                 "description": "",
                 "operationId": "Api",
                 "consumes": [
@@ -37,7 +28,7 @@
                 ],
                 "parameters": [
                     {
-                        "name": "name",
+                        "name": "username",
                         "in": "formData",
                         "description": "reqData",
                         "required": true,
@@ -46,16 +37,208 @@
                         "default": ""
                     },
                     {
-                        "name": "slug",
+                        "name": "email",
                         "in": "formData",
                         "description": "reqData",
                         "required": true,
+                        "type": "string",
+                        "format": "string",
+                        "default": ""
+                    },
+                    {
+                        "name": "password",
+                        "in": "formData",
+                        "description": "reqData",
+                        "required": false,
+                        "type": "string",
+                        "format": "string",
+                        "default": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Register successful!",
+                        "schema": {
+                            "$ref": "#/definitions/ApiResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Api"
+                ],
+                "summary": "Login Api",
+                "description": "",
+                "operationId": "Api",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "formData",
+                        "description": "reqData",
+                        "required": true,
+                        "type": "string",
+                        "format": "string",
+                        "default": ""
+                    },
+                    {
+                        "name": "password",
+                        "in": "formData",
+                        "description": "reqData",
+                        "required": false,
+                        "type": "string",
+                        "format": "string",
+                        "default": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Login successful!",
+                        "schema": {
+                            "$ref": "#/definitions/ApiResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/add-task": {
+            "post": {
+                "tags": [
+                    "Api"
+                ],
+                "summary": "Create Task",
+                "description": "",
+                "operationId": "Api",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "formData",
+                        "description": "reqData",
+                        "required": true,
+                        "type": "string",
+                        "format": "string",
+                        "default": ""
+                    },
+                    {
+                        "name": "title",
+                        "in": "formData",
+                        "description": "reqData",
+                        "required": false,
                         "type": "string",
                         "format": "string",
                         "default": ""
                     },
                     {
                         "name": "description",
+                        "in": "formData",
+                        "description": "reqData",
+                        "required": true,
+                        "type": "string",
+                        "format": "string",
+                        "default": ""
+                    },
+                    {
+                        "name": "dueDate",
+                        "in": "formData",
+                        "description": "reqData",
+                        "required": false,
+                        "type": "string",
+                        "format": "string",
+                        "default": ""
+                    },
+                    {
+                        "name": "priority",
+                        "in": "formData",
+                        "description": "reqData",
+                        "required": false,
+                        "type": "string",
+                        "format": "string",
+                        "default": ""
+                    },
+                    {
+                        "name": "status",
+                        "in": "formData",
+                        "description": "reqData",
+                        "required": false,
+                        "type": "string",
+                        "format": "string",
+                        "default": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Login successful!",
+                        "schema": {
+                            "$ref": "#/definitions/ApiResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/tasks": {
+            "get": {
+                "tags": [
+                    "Api"
+                ],
+                "summary": "Task Listing Api",
+                "description": "",
+                "operationId": "Api",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "$ref": "#/definitions/ApiResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/tasks/:taskId": {
+            "put": {
+                "tags": [
+                    "Api"
+                ],
+                "summary": "Update Task",
+                "description": "",
+                "operationId": "Api",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "taskId",
+                        "in": "formData",
+                        "description": "reqData",
+                        "required": true,
+                        "type": "string",
+                        "format": "string",
+                        "default": ""
+                    },
+                    {
+                        "name": "priority",
                         "in": "formData",
                         "description": "reqData",
                         "required": false,
@@ -71,20 +254,11 @@
                         "type": "string",
                         "format": "string",
                         "default": ""
-                    },
-                    {
-                        "name": "genreId",
-                        "in": "formData",
-                        "description": "reqData",
-                        "required": false,
-                        "type": "string",
-                        "format": "string",
-                        "default": ""
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "genre added successfully!",
+                        "description": "success",
                         "schema": {
                             "$ref": "#/definitions/ApiResponse"
                         }
@@ -92,12 +266,12 @@
                 }
             }
         },
-        "/api/genre-list": {
-            "get": {
+        "/api/task/:taskId": {
+            "delete": {
                 "tags": [
-                    "Admin"
+                    "Api"
                 ],
-                "summary": "Get Genre List",
+                "summary": "Delete Task",
                 "description": "",
                 "operationId": "Api",
                 "consumes": [
@@ -106,10 +280,20 @@
                 "produces": [
                     "application/json"
                 ],
-               
+                "parameters": [
+                    {
+                        "name": "taskId",
+                        "in": "formData",
+                        "description": "reqData",
+                        "required": true,
+                        "type": "string",
+                        "format": "string",
+                        "default": ""
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "genre list",
+                        "description": "success",
                         "schema": {
                             "$ref": "#/definitions/ApiResponse"
                         }
@@ -118,7 +302,6 @@
             }
         }
     },
-    
     "securityDefinitions": {
         "Authorization": {
             "type": "apiKey",

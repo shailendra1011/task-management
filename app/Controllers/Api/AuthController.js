@@ -6,45 +6,57 @@ const { Validator } = require('node-input-validator');
 const User = db.User
 
 module.exports = {
+    //user registration function
     register: async (req, res) => {
         try {
             const valid = new Validator(req.body, {
-                // username: 'required',
-                email: 'required',
+                username: 'required',
+                email: 'required|email',
                 password: 'required'
             });
             const matched = await valid.check()
             if (!matched)
                 return validationFailedRes(res, valid);
-            const user = await User.findOne({ where: { email: req.body.email } })
 
+            //check user alredy exist or not
+            const user = await User.findOne({ where: { email: req.body.email } })
             if (user) {
                 return success(res, "user already exist!");
             }
+            //password security using bcrypt package
             req.body.password = await bcrypt.hash(req.body.password, 12);
+            //create user in mysql database
             await User.create(req.body);
-
             return success(res, "Register successful!", {});
 
-            console.log(token);
         } catch (error) {
             return failed(res, error, 500);
         }
     },
+    //user login function
     login: async (req, res) => {
         try {
-            const { email, password } = req.body;
-            const user = await User.findOne({ where: { email } });
+            const valid = new Validator(req.body, {
+                email: 'required|email',
+                password: 'required'
+            });
+            const matched = await valid.check()
+            if (!matched)
+                return validationFailedRes(res, valid);
 
+            //check user exist or not
+            const user = await User.findOne({ where: { email: req.body.email } });
             if (!user) {
-                return failed(res, 'User does not exist', 400);
-            }                
-            if (user && (await bcrypt.compare(password, user.password))) {  
+                return notFoundMessage(res, 'user not found', {});
+            }
+            //check password is match or not
+            if (user && (await bcrypt.compare(req.body.password, user.password))) {
+               //generate token using Jwt
                 const token = jwt.sign({
                     user_id: user.id
                 },
                     process.env.ACCESS_TOKEN_SECRET, {
-                    expiresIn: "500h",
+                    expiresIn: "50h",
                 });
 
                 const data = {

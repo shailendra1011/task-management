@@ -8,6 +8,8 @@ const swaggerJSDoc = require('swagger-jsdoc');
 const path = require('path');
 const fs = require('fs');
 const { Api } = require('./routes/api');
+const cronTask = require('./app/Helper/croneJob');
+
 
 
 // Load environment variables
@@ -20,6 +22,8 @@ const PORT = process.env.PORT || 3001;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+//run crone job
+cronTask.start();
 
 
 // Swagger setup
